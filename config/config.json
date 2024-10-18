@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "avnadmin",
+    "password": "",
+    "database": "ic71303db",
+    "host": "pg-ic71302-ic-71302.c.aivencloud.com",
+    "dialect": "postgres",
+    "port": "28236",
+    "SSLMode": "require",
+    "dialectOptions": {
+      "ssl": {
+        "rejectUnauthorized": false     
+      }
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
