@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    slug: {
+      type: DataTypes.STRING,
+      unique: true, // Đảm bảo slug là duy nhất
+    },
     completion_year: {
       type: DataTypes.INTEGER,
     },
@@ -40,11 +44,14 @@ module.exports = (sequelize, DataTypes) => {
         key: 'customer_id',
       },
     },
+    seo: {
+      type: DataTypes.JSON, // Thông tin SEO cho dự án
+    },
   }, {
     sequelize,
     modelName: "Project",
     tableName: "projects",
-    timestamps: false,
+    timestamps: true, // Thêm timestamps để tự động quản lý createdAt và updatedAt
   });
 
   return Project;

@@ -2,42 +2,48 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const projects = [
+    await queryInterface.bulkInsert('projects', [
       {
-        title: 'Dự án Cầu A',
-        completion_year: 2022,
-        summary: 'Dự án cầu hiện đại với thiết kế bền vững.',
-        location: 'Hà Nội, Việt Nam',
-        image_url: 'http://example.com/image_project_a.jpg',
-        architect_id: 1, // Liên kết với kiến trúc sư đã tạo
-        customer_id: 1, // Liên kết với khách hàng đã tạo
-      },
-      {
-        title: 'Dự án Nhà B',
+        title: 'Dự Án Kiến Trúc A',
+        slug: 'du-an-kien-truc-a', // Thêm slug
         completion_year: 2023,
-        summary: 'Nhà ở dân dụng với tiện ích đầy đủ.',
-        location: 'Đà Nẵng, Việt Nam',
-        image_url: 'http://example.com/image_project_b.jpg',
-        architect_id: 2,
-        customer_id: 2,
+        summary: 'Một dự án kiến trúc đột phá.',
+        location: 'Hà Nội',
+        image_url: 'http://example.com/image_a.jpg',
+        customer_id: 1,
+        seo: JSON.stringify({
+          metaTitle: 'Dự Án Kiến Trúc A',
+          metaDescription: 'Khám phá dự án kiến trúc A với thiết kế hiện đại.',
+          metaImage: 'http://example.com/meta_image_a.jpg',
+          keywords: 'kiến trúc, dự án, Hà Nội',
+          metaRobots: 'index, follow',
+          structuredData: {},
+          canonicalURL: 'http://example.com/du-an-kien-truc-a',
+        }),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
-        title: 'Dự án Văn phòng C',
+        title: 'Dự Án Kiến Trúc B',
+        slug: 'du-an-kien-truc-b', // Thêm slug
         completion_year: 2024,
-        summary: 'Tòa nhà văn phòng hiện đại.',
-        location: 'TP.HCM, Việt Nam',
-        image_url: 'http://example.com/image_project_c.jpg',
-        architect_id: 3,
-        customer_id: 3,
+        summary: 'Một dự án khác nổi bật.',
+        location: 'Đà Nẵng',
+        image_url: 'http://example.com/image_b.jpg',
+        customer_id: 2,
+        seo: JSON.stringify({
+          metaTitle: 'Dự Án Kiến Trúc B',
+          metaDescription: 'Dự án kiến trúc B với thiết kế sang trọng.',
+          metaImage: 'http://example.com/meta_image_b.jpg',
+          keywords: 'kiến trúc, dự án, Đà Nẵng',
+          metaRobots: 'index, follow',
+          structuredData: {},
+          canonicalURL: 'http://example.com/du-an-kien-truc-b',
+        }),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
-    ];
-
-    projects.forEach((project) => {
-      project.createdAt = Sequelize.literal("NOW()");
-      project.updatedAt = Sequelize.literal("NOW()");
-    });
-
-    await queryInterface.bulkInsert('projects', projects, {});
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
