@@ -35,7 +35,13 @@ module.exports = (sequelize, DataTypes) => {
     modelName: "PostLike",
     tableName: "post_likes",
     timestamps: false,
-  });
+    indexes: [
+      {
+        unique: true,
+        fields: ['user_id', 'post_id']  // Đảm bảo rằng một người dùng chỉ like một bài viết một lần
+      }
+    ]
+  });  
 
   return PostLike;
 };

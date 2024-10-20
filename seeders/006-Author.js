@@ -4,26 +4,24 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     const authors = [
       {
+        author_id: 1,
         name: 'Nguyễn Văn A',
         email: 'nguyenvana@example.com',
-        user_id: 1, // Liên kết với user đã đăng ký
+        user_id: 1,
       },
       {
+        author_id: 2,
         name: 'Trần Thị B',
         email: 'tranthib@example.com',
         user_id: 2,
       },
       {
+        author_id: 3,
         name: 'Lê Thị C',
         email: 'lethic@example.com',
         user_id: 3,
       },
     ];
-
-    authors.forEach((author) => {
-      author.createdAt = Sequelize.literal("NOW()");
-      author.updatedAt = Sequelize.literal("NOW()");
-    });
 
     await queryInterface.bulkInsert('authors', authors, {});
   },

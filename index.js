@@ -3,10 +3,10 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8000;
-const expressHandlebars = require("express-handlebars");
+// const expressHandlebars = require("express-handlebars");
 
 //cau hinh public static folder
-app.use(express.static(__dirname + "/public"));
+// app.use(express.static(__dirname + "/public"));
 
 //cau hinh su dung express-handlebars
 // app.engine(
@@ -24,13 +24,11 @@ app.use(express.static(__dirname + "/public"));
 // app.set("view engine", "hbs");
 
 //cau hinh doc du lieu post tu body
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 
 //routes
-// app.use("/api", require("./routes/homeRouter"));
-// app.use("/api/blog", require("./routes/blogRouter"));
-
+// app.use("/api", request("./routes/blogRouter"));
 
 // Middleware để xử lý lỗi 404
 app.use((req, res, next) => {

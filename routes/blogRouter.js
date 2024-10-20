@@ -1,0 +1,10 @@
+//routes/blogRouter.js
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+const blogController = require('../controllers/blogController');
+
+router.get('/articles', blogController.showArticle);
+
+module.exports = router;

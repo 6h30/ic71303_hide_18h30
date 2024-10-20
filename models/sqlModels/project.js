@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     slug: {
       type: DataTypes.STRING,
-      unique: true, // Đảm bảo slug là duy nhất
+      unique: true,
     },
     completion_year: {
       type: DataTypes.INTEGER,
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     seo: {
-      type: DataTypes.JSON, // Thông tin SEO cho dự án
+      type: DataTypes.JSON,
     },
   }, {
     sequelize,

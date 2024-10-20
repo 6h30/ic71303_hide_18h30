@@ -20,11 +20,6 @@ module.exports = {
       },
     ];
 
-    architects.forEach((architect) => {
-      architect.createdAt = Sequelize.literal("NOW()");
-      architect.updatedAt = Sequelize.literal("NOW()");
-    });
-
     await queryInterface.bulkInsert('architects', architects, {});
   },
 

@@ -4,11 +4,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const items = [
-      { name: 'Thiết kế kiến trúc' },
-      { name: 'Xây dựng' },
+      { name: 'Giải pháp thiết kế' },
+      { name: 'Công trình công cộng' },
+      { name: 'Nhà ở' },
       { name: 'Nội thất' },
-      { name: 'Quản lý dự án' },
-      { name: 'Phát triển bền vững' },
+      { name: 'Tin tức' },
     ];
 
     items.forEach((item) => {
@@ -16,10 +16,10 @@ module.exports = {
       item.updatedAt = Sequelize.literal("NOW()");
     });
 
-    await queryInterface.bulkInsert("Categories", items, {});
+    await queryInterface.bulkInsert("categories", items, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Categories", null, {});
+    await queryInterface.bulkDelete("categories", null, {});
   },
 };

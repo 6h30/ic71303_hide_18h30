@@ -4,6 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('projects', [
       {
+        project_id: 1,
         title: 'Dự Án Kiến Trúc A',
         slug: 'du-an-kien-truc-a', // Thêm slug
         completion_year: 2023,
@@ -24,6 +25,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
+        project_id: 2,
         title: 'Dự Án Kiến Trúc B',
         slug: 'du-an-kien-truc-b', // Thêm slug
         completion_year: 2024,

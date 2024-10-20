@@ -35,6 +35,12 @@ module.exports = (sequelize, DataTypes) => {
     modelName: "CommentLike",
     tableName: "comment_likes",
     timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['user_id', 'comment_id']
+      }
+    ]
   });
 
   return CommentLike;

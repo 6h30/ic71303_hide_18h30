@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
   Post.init({
     post_id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
     },
     seo: {

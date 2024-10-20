@@ -3,32 +3,28 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class Role extends Model {
     static associate(models) {
-      // Một thể loại có thể có nhiều bài viết
-      Category.belongsToMany(models.Post, {
-        through: 'PostCategories',
-        foreignKey: 'category_id',
-      });
+      Role.belongsToMany(models.User, { through: 'UserRoles', foreignKey: 'role_id' });
     }
   }
 
-  Category.init({
-    category_id: {
+  Role.init({
+    role_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    role_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
     sequelize,
-    modelName: "Category",
-    tableName: "categories",
+    modelName: "Role",
+    tableName: "roles",
     timestamps: true,
   });
 
-  return Category;
+  return Role;
 };

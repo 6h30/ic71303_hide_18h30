@@ -3,13 +3,25 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class PostCategories extends Model {}
+  class PostCategory extends Model {
+    // Bạn có thể định nghĩa các quan hệ ở đây nếu cần
+    static associate(models) {
+      PostCategory.belongsTo(models.Post, {
+        foreignKey: 'post_id',
+        as: 'post'
+      });
+      PostCategory.belongsTo(models.Category, {
+        foreignKey: 'category_id',
+        as: 'category'
+      });
+    }
+  }
 
-  PostCategories.init({
+  PostCategory.init({
     post_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'posts',
+        model: 'posts', // Kiểm tra xem tên bảng trong cơ sở dữ liệu có phải là 'posts' không
         key: 'post_id',
       },
       primaryKey: true,
@@ -17,17 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     category_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'categories',
+        model: 'categories', // Kiểm tra xem tên bảng trong cơ sở dữ liệu có phải là 'categories' không
         key: 'category_id',
       },
       primaryKey: true,
     },
   }, {
     sequelize,
-    modelName: "PostCategories",
-    tableName: "PostCategories",
+    modelName: "PostCategory", // Sử dụng số ít
+    tableName: "post_categories", // Đảm bảo tên bảng khớp với cơ sở dữ liệu
     timestamps: false,
   });
 
-  return PostCategories;
+  return PostCategory;
 };

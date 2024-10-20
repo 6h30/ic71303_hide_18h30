@@ -18,7 +18,8 @@ const config = {
   database: process.env.DB_DATABASE,
   ssl: {
     rejectUnauthorized: true,
-    ca: fs.readFileSync(path.resolve(__dirname, process.env.DB_SSL_CA_CERT_PATH)).toString(),
+    ca: fs.readFileSync(path.resolve(__dirname, "../", process.env.DB_SSL_CA_CERT_PATH)).toString(),
+
   },
 };
 

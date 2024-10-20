@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   Customer.init({
     customer_id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
     },
     name: {
