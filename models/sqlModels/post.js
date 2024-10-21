@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsToMany(models.Category, { through: 'PostCategories', foreignKey: 'post_id' });
       // Một bài viết có thể có nhiều bình luận
       Post.hasMany(models.Comment, { foreignKey: 'post_id', as: 'comments' });
+
+      Post.belongsTo(models.Author, { foreignKey: 'author_id', as: 'author' });
       // Một bài viết có thể có nhiều bài viết liên quan
       Post.belongsToMany(models.Post, { 
         as: 'relatedArticles', 
@@ -66,6 +68,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING, // Đường dẫn đến hình ảnh chính
+    },
+    author_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'authors', // Tên bảng tác giả
+        key: 'author_id',
+      },
+      allowNull: false,
     },
   }, {
     sequelize,

@@ -17,7 +17,7 @@ const config = {
   dialect: process.env.DB_DIALECT,
   database: process.env.DB_DATABASE,
   ssl: {
-    rejectUnauthorized: true,
+    rejectUnauthorized: false,
     ca: fs.readFileSync(path.resolve(__dirname, "../", process.env.DB_SSL_CA_CERT_PATH)).toString(),
 
   },

@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     project_id: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       primaryKey: true,
     },
     title: {

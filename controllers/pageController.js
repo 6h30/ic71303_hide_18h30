@@ -3,37 +3,9 @@
 const models = require('../models');
 const controller = {};
 
-// controller.showArticle = async (req, res) => {
-//     const articleId = req.params.id; // Lấy ID bài viết từ tham số URL
-
-//     try {
-//         // Tìm bài viết trong cơ sở dữ liệu
-//         const article = await models.Post.findByPk(articleId, {
-//             include: [
-//                 { model: models.Category, through: { attributes: [] } }, // Lấy danh mục 
-//                 { model: models.Comment, as: 'comments' }, // Lấy bình luận
-//                 { model: models.Author, as: 'author' } // Lấy thông tin tác giả
-//             ]
-//         });
-
-//         // Kiểm tra xem bài viết có tồn tại không
-//         if (!article) {
-//             return res.status(404).json({ message: 'Article not found' });
-//         }
-
-//         // Trả về bài viết
-//         return res.status(200).json(article);
-//     } catch (error) {
-//         // Xử lý lỗi
-//         console.error(error);
-//         return res.status(500).json({ message: 'An error occurred while fetching the article' });
-//     }
-// };
-
-// Lấy danh sách bài viết
-controller.getPosts = async (req, res) => {
+controller.getPages = async (req, res) => {
     try {
-        const posts = await models.Post.findAll({
+        const posts = await models.Page.findAll({
             include: [
                 { model: models.Author, as: 'author', attributes: ['author_id'] }, // Bao gồm thông tin tác giả
                 { model: models.Comment, as: 'comments', attributes: ['comment_id'] } // Bao gồm bình luận nếu cần
@@ -46,7 +18,7 @@ controller.getPosts = async (req, res) => {
         });
 
         // Chuyển đổi dữ liệu thành định dạng yêu cầu
-        const formattedPosts = posts.map(post => ({
+        const formattedPages = posts.map(post => ({
             post_id: post.post_id,
             seo: post.seo,
             metaTitle: post.metaTitle,
@@ -68,7 +40,7 @@ controller.getPosts = async (req, res) => {
         }));
 
         const response = {
-            data: formattedPosts,
+            data: formattedPages,
             meta: {
                 pagination: {
                     page: 1, // Có thể thêm logic phân trang nếu cần
@@ -88,28 +60,16 @@ controller.getPosts = async (req, res) => {
 };
 
 
-// Tạo bài viết mới
-controller.createPost = async (req, res) => {
-    const { title, content, authorId } = req.body; // Lấy dữ liệu từ body
 
-    try {
-        const newPost = await models.Post.create({ title, content, authorId });
-        return res.status(201).json(newPost);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'An error occurred while creating the post' });
-    }
-};
-
-// Lấy một bài viết cụ thể
-controller.getPostById = async (req, res) => {
+// Lấy một thông tin trang cụ thể
+controller.getPageById = async (req, res) => {
     const postId = req.params.documentId; // Lấy ID bài viết từ tham số URL
 
     try {
-        const post = await models.Post.findByPk(postId);
+        const post = await models.Page.findByPk(postId);
 
         if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).json({ message: 'Page not found' });
         }
         return res.status(200).json(post);
     } catch (error) {
@@ -118,15 +78,15 @@ controller.getPostById = async (req, res) => {
     }
 };
 
-// Cập nhật bài viết
-controller.updatePost = async (req, res) => {
+// Cập nhật thông tin trang cụ thể
+controller.updatePage = async (req, res) => {
     const postId = req.params.documentId; // Lấy ID bài viết từ tham số URL
     const { title, content } = req.body; // Lấy dữ liệu từ body
 
     try {
-        const post = await models.Post.findByPk(postId);
+        const post = await models.Page.findByPk(postId);
         if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).json({ message: 'Page not found' });
         }
 
         // Cập nhật thông tin bài viết
@@ -141,14 +101,14 @@ controller.updatePost = async (req, res) => {
     }
 };
 
-// Xóa bài viết
-controller.deletePost = async (req, res) => {
+// Xóa thông tin trang cụ thể
+controller.deletePage = async (req, res) => {
     const postId = req.params.documentId; // Lấy ID bài viết từ tham số URL
 
     try {
-        const post = await models.Post.findByPk(postId);
+        const post = await models.Page.findByPk(postId);
         if (!post) {
-            return res.status(404).json({ message: 'Post not found' });
+            return res.status(404).json({ message: 'Page not found' });
         }
 
         await post.destroy(); // Xóa bài viết
