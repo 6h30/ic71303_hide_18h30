@@ -1,27 +1,31 @@
 "use strict";
 
 const express = require("express");
+// const session = require('express-session');
+// const RedisStore = require('connect-redis').default; 
+// const redis = require('redis');
+
 const app = express();
 const port = process.env.PORT || 8000;
-// const expressHandlebars = require("express-handlebars");
 
-//cau hinh public static folder
-// app.use(express.static(__dirname + "/public"));
+// const redisClient = redis.createClient({
+//   host: 'localhost',
+//   port: 6379,
+// });
 
-//cau hinh su dung express-handlebars
-// app.engine(
-//   "hbs",
-//   expressHandlebars.engine({
-//     layoutsDir: __dirname + "/views/layouts",
-//     partialsDir: __dirname + "/views/partials",
-//     extname: "hbs",
-//     defaultLayout: "layout",
-//     allowProtoPropertiesByDefault: true,
-//     allowProtoMethodsByDefault: true
-//   })
-// );
+// cau hinh su dung session
+// app.use(session({
+//   store: new RedisStore({ client: redisClient }),
+//   secret: process.env.SESSION_SECRET || 'your-secret',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === 'production',
+//       maxAge: 20 * 60 * 1000,
+//   },
+// }));
 
-// app.set("view engine", "hbs");
 
 //cau hinh doc du lieu post tu body
 app.use(express.json());
@@ -29,6 +33,18 @@ app.use(express.json());
 
 //routes
 app.use("/api", require("./routes/blogRouter"));
+app.use("/api", require("./routes/projectRouter"));
+
+// Ví dụ route
+// app.get('/session', (req, res) => {
+//   // Kiểm tra hoặc khởi tạo session
+//   if (!req.session.views) {
+//       req.session.views = 1;
+//   } else {
+//       req.session.views++;
+//   }
+//   res.send(`Số lần xem: ${req.session.views}`);
+// });
 
 // Middleware để xử lý lỗi 404
 app.use((req, res, next) => {
@@ -36,3 +52,8 @@ app.use((req, res, next) => {
 });
 
 app.listen(port, () => console.log(`đang mở port ${port}!`));
+
+// Xử lý lỗi Redis
+// redisClient.on('error', (err) => {
+//   console.error('Redis error: ', err);
+// });

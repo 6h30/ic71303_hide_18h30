@@ -59,8 +59,6 @@ controller.getPages = async (req, res) => {
     
 };
 
-
-
 // Lấy một thông tin trang cụ thể
 controller.getPageById = async (req, res) => {
     const postId = req.params.documentId; // Lấy ID bài viết từ tham số URL
