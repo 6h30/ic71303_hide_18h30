@@ -26,7 +26,6 @@ const port = process.env.PORT || 8000;
 //   },
 // }));
 
-
 //cau hinh doc du lieu post tu body
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
@@ -34,6 +33,7 @@ app.use(express.json());
 //routes
 app.use("/api", require("./routes/blogRouter"));
 app.use("/api", require("./routes/projectRouter"));
+app.use('/api/user', require('./routes/authRouter'));
 
 // Ví dụ route
 // app.get('/session', (req, res) => {
