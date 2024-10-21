@@ -24,9 +24,10 @@ controller.show = (req, res) => {
 }
 
 controller.login = (req, res, next) => {
-    let keepSignedIn = req.body.keepSignedIn;
-    let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/users/my-account';
+    let keepSignedIn = req.body.keepSignedIn; //lay thong tin tu req.body xem user muon keepsignedin hay k
+    let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/users/my-account'; //chuyen huong sau khi user dang nhap
     let cart = req.session.cart; 
+    // xem cau hinh local-login trong passport.js , goi ham callback (error,user) sau khi hoan thanh, neu ok thi user da xac thuc, k co user thi tra lai thong bao
     passport.authenticate('local-login', (error, user) => {
         if (error) {
             return next(error);
@@ -34,11 +35,13 @@ controller.login = (req, res, next) => {
         if (!user) {
             return res.redirect(`/users/login?reqUrl=${reqUrl}`);
         }
+        //ham cua passport: thiet lap time song cua cookie
         req.logIn(user, (error) => {
             if (error) { return next(error); }
             req.session.cookie.maxAge = keepSignedIn ? (24 * 60 * 60 * 1000) : null;
+            // neu chon keepsignedin: time song cookie 1 ngay hoac nguoc lai: null
             req.session.cart = cart;
-            return res.redirect(reqUrl);
+            return res.redirect(reqUrl); //bien reqUrl de chuyen huong
         });
     })(req, res, next);
 
@@ -112,7 +115,7 @@ controller.showResetPassword = (req, res) => {
 
     let email = req.query.email;
     let token = req.query.token;
-    let { verify } = require('./jwt');
+    let { verify } = require('./jwt'); //xac thuc token bang jwt
     if (!token || !verify(token)) {
         return res.render('reset-password', { expired: true });
     } else {
@@ -124,7 +127,7 @@ controller.resetPassword = async (req, res) => {
     let email = req.body.email;
     let token = req.body.token;
     let bcrypt = require('bcrypt');
-    let password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8));
+    let password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8)); //them muoi va bam mat khau
 
     await models.User.update({ password }, { where: { email } });
     res.render('reset-password', { done: true });
