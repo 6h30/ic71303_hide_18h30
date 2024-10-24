@@ -1,0 +1,8 @@
+controller xử lý việc đặt lại mật khẩu.
+
+Nhận dữ liệu từ body của request (email, token, và mật khẩu mới).
+Mã hóa mật khẩu mới của người dùng bằng bcrypt để bảo mật trước khi lưu trữ trong cơ sở dữ liệu.
+Cập nhật mật khẩu đã mã hóa vào cơ sở dữ liệu dựa trên địa chỉ email.
+Hiển thị thông báo thành công trên trang reset password, cho người dùng biết rằng mật khẩu đã được đặt lại.
+
+Lưu ý: Mặc dù đoạn mã này cập nhật mật khẩu, token chưa được xác thực lại ở phần này. Để bảo mật cao hơn, nên xác thực token trước khi cập nhật mật khẩu.
