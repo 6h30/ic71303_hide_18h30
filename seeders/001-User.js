@@ -8,7 +8,7 @@ module.exports = {
         username: 'user1',
         email: 'user1@example.com',
         provider: 'email',
-        password: 'hashed_password1', // Sử dụng mã hóa thực tế cho mật khẩu
+        password: 'hashed_password1', 
         resetPasswordToken: null,
         confirmationToken: null,
         confirmed: true,

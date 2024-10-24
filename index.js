@@ -9,7 +9,14 @@ const passport = require('./controllers/passport');
 const flash = require('connect-flash');
 
 const app = express();
-const port = process.env.PORT || 8000;
+// const port = process.env.PORT || 8000;
+
+let server;
+
+// Khởi động server
+startServer(process.env.PORT || 8000)
+  .then(() => console.log('Server started successfully'))
+  .catch(err => console.error('Error starting server:', err));
 
 // Khởi tạo Redis client
 const redisClient = createClient({
@@ -51,8 +58,8 @@ app.use((req, res, next) => {
 });
 
 // Cấu hình body parser cho API
-app.use(express.json()); // Để xử lý các yêu cầu JSON
-app.use(express.urlencoded({ extended: true })); // Để xử lý dữ liệu từ form URL-encoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api", require("./routes/blogRouter"));
@@ -74,10 +81,23 @@ app.use((req, res, next) => {
   res.status(404).send("404 Not Found");
 });
 
-// Lắng nghe port
-app.listen(port, () => console.log(`Opened port ${port}!`));
+function startServer(port) {
+  return new Promise((reject) => {
+    server = app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+      console.log(`Visit http://localhost:${port}/session to test session route`);
+      console.log(`API routes available:`);
+      console.log(`- /api/user (Authentication)`);
+    });
+    server.on('error', (err) => {
+      reject(err);
+    });
+  });
+}
 
 // Xử lý lỗi Redis
 redisClient.on('error', (err) => {
   console.error('Redis error: ', err);
 });
+
+module.exports = { app, startServer };

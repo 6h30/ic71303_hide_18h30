@@ -15,7 +15,7 @@ const handleValidationErrors = (req, res, next) => {
 };
 
 // Đăng nhập
-router.get('/login', controller.show);
+// router.get('/login', controller.show);
 router.post('/login',
     body('email').trim().notEmpty().withMessage('Email is required!').isEmail().withMessage('Invalid email address!'),
     body('password').trim().notEmpty().withMessage('Password is required!'),
