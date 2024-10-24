@@ -68,7 +68,7 @@ db.Sequelize = Sequelize;
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Kết nối thành công đến cơ sở dữ liệu");
+    console.log("Connected to database");
   })
   .catch((err) => {
     console.error("Không thể kết nối đến cơ sở dữ liệu:", err);
