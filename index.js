@@ -34,7 +34,9 @@ redisClient.connect()
   .catch(err => console.error('Redis connection error:', err));
 
 app.use(cors({
-  origin: 'https://scaling-happiness-gj65w4447r7fpg6q-3000.app.github.dev' 
+    origin: 'https://scaling-happiness-gj65w4447r7fpg6q-3000.app.github.dev', // Thay đổi theo nguồn gốc của bạn
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Các phương thức cho phép
+    allowedHeaders: ['Content-Type', 'Authorization'] // Các header cho phép
 }));
 
 // Cấu hình session
