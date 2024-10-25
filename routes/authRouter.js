@@ -24,7 +24,7 @@ router.post('/login',
 );
 
 // Đăng xuất
-router.get('/logout', controller.logout);
+router.post('/logout', controller.logout);
 
 // Đăng ký
 router.post('/register',
