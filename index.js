@@ -3,10 +3,11 @@ require('dotenv').config();
 
 const express = require("express");
 const session = require('express-session');
-const RedisStore = require('connect-redis').default; 
+const RedisStore = require('connect-redis').default;
 const { createClient } = require('redis');
-const passport = require('./controllers/passport'); 
+const passport = require('./controllers/passport');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const app = express();
 // const port = process.env.PORT || 8000;
@@ -20,17 +21,21 @@ startServer(process.env.PORT || 8000)
 
 // Khởi tạo Redis client
 const redisClient = createClient({
-    password: process.env.REDIS_PASSWORD, 
-    socket: {
-        host: process.env.REDIS_HOST,
-        port: Number(process.env.REDIS_PORT)
-    }
+  password: process.env.REDIS_PASSWORD,
+  socket: {
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT)
+  }
 });
 
 // Kết nối đến Redis
 redisClient.connect()
-    .then(() => console.log('Connected to Redis'))
-    .catch(err => console.error('Redis connection error:', err));
+  .then(() => console.log('Connected to Redis'))
+  .catch(err => console.error('Redis connection error:', err));
+
+app.use(cors({
+  origin: 'https://scaling-happiness-gj65w4447r7fpg6q-3000.app.github.dev' 
+}));
 
 // Cấu hình session
 app.use(session({
@@ -39,9 +44,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 20 * 60 * 1000,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 20 * 60 * 1000,
   },
 }));
 
@@ -52,9 +57,9 @@ app.use(flash());
 
 // Middleware để truyền flash messages vào res.locals
 app.use((req, res, next) => {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    next();
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
 });
 
 // Cấu hình body parser cho API
@@ -69,9 +74,9 @@ app.use('/api/user', require('./routes/authRouter'));
 // Ví dụ route
 app.get('/session', (req, res) => {
   if (!req.session.views) {
-      req.session.views = 1;
+    req.session.views = 1;
   } else {
-      req.session.views++;
+    req.session.views++;
   }
   res.send(`Số lần xem: ${req.session.views}`);
 });
