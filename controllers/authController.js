@@ -80,19 +80,18 @@ controller.login = (req, res, next) => {
 
 
 controller.logout = (req, res, next) => {
-    let cart = req.session.cart;
-
     req.logout((error) => {
         if (error) { 
-            return next(error); 
+            console.error('Logout error:', error); 
+            return res.status(500).json({ success: false, message: 'Logout failed' });
         }
 
-        req.session.cart = cart;
-
-        // Gửi phản hồi JSON với thông báo thành công
-        return res.json({ message: 'Logout successful' });
+        // Đảm bảo trả về Content-Type là application/json
+        res.setHeader('Content-Type', 'application/json');
+        return res.json({ success: true, message: 'Logout successful' });
     });
-}
+};
+
 
 controller.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
