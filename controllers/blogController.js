@@ -36,7 +36,9 @@ controller.getPosts = async (req, res) => {
         const posts = await models.Post.findAll({
             include: [
                 { model: models.Author, as: 'author', attributes: ['author_id'] }, // Bao gồm thông tin tác giả
-                { model: models.Comment, as: 'comments', attributes: ['comment_id'] } // Bao gồm bình luận nếu cần
+                { model: models.Comment, as: 'comments', attributes: ['comment_id'] }, // Bao gồm bình luận nếu cần
+                { model: models.Category, as: 'items', attributes: ['name'] },
+                { model: models.PostCategory, as: 'postCategories', attributes: ['category_id'] }
             ],
             attributes: [
                 'post_id', 'title', 'description', 'slug', 'content', 'image', 'author_id', 'createdAt', 'updatedAt',
@@ -63,6 +65,8 @@ controller.getPosts = async (req, res) => {
             content: post.content,
             image: post.image,
             author_id: post.author_id,
+            category_name: post.name,
+            category_id: post.category_id,
             createdAt: post.createdAt,
             updatedAt: post.updatedAt
         }));
@@ -81,7 +85,7 @@ controller.getPosts = async (req, res) => {
 
         return res.status(200).json(response);
     } catch (error) {
-        console.error('Error fetching posts:', error); // In lỗi ra console
+        console.error('Error fetching posts:', error); 
         return res.status(500).json({ message: 'An error occurred while fetching posts', error: error.message });
     }
     

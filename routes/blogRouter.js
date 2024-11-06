@@ -11,8 +11,8 @@ const blogController = require('../controllers/blogController');
 router.get('/posts', blogController.getPosts);
 router.post('/posts', blogController.createPost);
 
-router.get('/posts/:documentId', blogController.getPostById);
-router.put('/posts/:documentId', blogController.updatePost);
-router.delete('/posts/:documentId', blogController.deletePost);
+router.get('/post/:documentId', blogController.getPostById);
+router.put('/post/:documentId', blogController.updatePost);
+router.delete('/post/:documentId', blogController.deletePost);
 
 module.exports = router;

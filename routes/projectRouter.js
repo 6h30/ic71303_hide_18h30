@@ -9,8 +9,8 @@ const projectController = require('../controllers/projectController');
 router.get('/projects', projectController.getProjects);
 router.post('/projects', projectController.createProject);
 
-router.get('/projects/:projectId', projectController.getProjectById);
-router.put('/projects/:projectId', projectController.updateProject);
-router.delete('/projects/:projectId', projectController.deleteProject);
+router.get('/project/:projectId', projectController.getProjectById);
+router.put('/project/:projectId', projectController.updateProject);
+router.delete('/project/:projectId', projectController.deleteProject);
 
 module.exports = router;
