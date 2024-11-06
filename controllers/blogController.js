@@ -37,8 +37,7 @@ controller.getPosts = async (req, res) => {
             include: [
                 { model: models.Author, as: 'author', attributes: ['author_id'] }, // Bao gồm thông tin tác giả
                 { model: models.Comment, as: 'comments', attributes: ['comment_id'] }, // Bao gồm bình luận nếu cần
-                { model: models.Category, as: 'categories', attributes: ['name'] },
-                { model: models.PostCategory, as: 'postCategories', attributes: ['category_id'] }
+                { model: models.Category, as: 'relatedArticles', attributes: ['name'] },
             ],
             attributes: [
                 'post_id', 'title', 'description', 'slug', 'content', 'image', 'author_id', 'createdAt', 'updatedAt',
